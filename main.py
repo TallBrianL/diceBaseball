@@ -2,19 +2,25 @@ import gameState
 import players
 import stats
 
+
+class Team:
+    def __init__(self):
+        self.batters = [players.players.Batter() for _ in range(9)]
+        self.pitchers = [players.players.Pitcher() for _ in range(1)]
+
+
 if __name__ == '__main__':
-    stats_total = stats.Stats()
-    for iGame in range(1000):
-        game = gameState.gamestate.GameState()
-        while not game.is_final():
-            # print('Before:', game[iGame])
-            players.players.make_action_roll(game)
-            # print("After:", game[iGame])
-        print(game)
-        if stats_total is None or game.stats is None:
-            print('Bad')
-        stats_total = stats_total + game.stats
-        if (iGame + 1) % 10000 == 0:
+    home_team = Team()
+    away_team = Team()
+
+    total_stats = stats.Stats()
+
+    print('Playing 4900 games')
+    for iGame in range(4900):
+        game = gameState.gamestate.GameState(home_team, away_team)
+        stats_game = game.play_game()
+        total_stats += stats_game
+        if (iGame + 1) % 500 == 0:
             print(iGame + 1, 'Games Complete!')
     print('All Games Completed')
-    print(stats_total)
+    print(total_stats)

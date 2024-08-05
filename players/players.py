@@ -1,38 +1,51 @@
 import random
+from ShowdownOutcomes import ShowdownOutcomes
 
 
-def batter(action_score, game):
-    if action_score >= 19:
-        game.homerun()
-    elif action_score >= 18:
-        game.triple()
-    elif action_score >= 16:
-        game.double()
-    elif action_score >= 13:
-        game.single()
-    elif action_score >= 6:
-        game.ball()
-    else:
-        game.foul()
+class Batter:
+    @staticmethod
+    def take_action(action_score):
+        if action_score >= 19:
+            outcome = ShowdownOutcomes.TRIPLE
+        elif action_score >= 18:
+            outcome = ShowdownOutcomes.STOLENBASE
+        elif action_score >= 17:
+            outcome = ShowdownOutcomes.HOMERUN
+        elif action_score >= 16:
+            outcome = ShowdownOutcomes.DOUBLE
+        elif action_score >= 14:
+            outcome = ShowdownOutcomes.SINGLE
+        elif action_score >= 6:
+            outcome = ShowdownOutcomes.BALL
+        else:
+            outcome = ShowdownOutcomes.FOUL
+        return outcome
 
 
-def pitcher(action_score, game):
-    if action_score >= 18:
-        game.hit_into_double_play()
-    elif action_score >= 16:
-        game.hit_into_out()
-    elif action_score >= 9:
-        game.strike()
-    else:
-        game.foul()
+class Pitcher:
+    @staticmethod
+    def take_action(action_score):
+        if action_score >= 17:
+            outcome = ShowdownOutcomes.HITINTODOUBLEPLAY
+        elif action_score >= 15:
+            outcome = ShowdownOutcomes.HITINTOOUT
+        elif action_score >= 12:
+            outcome = ShowdownOutcomes.SACRAFICE
+        elif action_score >= 9:
+            outcome = ShowdownOutcomes.STRIKE
+        else:
+            outcome = ShowdownOutcomes.FOUL
+        return outcome
 
 
-def make_action_roll(game):
+def make_action_roll(batter, pitcher) -> ShowdownOutcomes:
     batter_die = random.randint(1, 20)
     pitcher_die = random.randint(1, 20)
     if batter_die >= pitcher_die:
         # print('batter', batter_die- pitcher_die)
-        batter(batter_die - pitcher_die, game)
+        outcome = batter.take_action(batter_die - pitcher_die)
     else:
         # print('pitcher', pitcher_die - batter_die)
-        pitcher(pitcher_die - batter_die, game)
+        outcome = pitcher.take_action(pitcher_die - batter_die)
+    return outcome
+

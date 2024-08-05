@@ -1,8 +1,10 @@
 import stats
+import players
+from ShowdownOutcomes import ShowdownOutcomes
 
 
 class GameState:
-    def __init__(self):
+    def __init__(self, visitor_team, home_team):
         self.verbose_pitch_prints = False
         self.bases = [0, 0, 0]
         self.count = (0, 0)
@@ -11,6 +13,45 @@ class GameState:
         self.inning = 1
         self.score = (0, 0)
         self.stats = stats.Stats()
+        self.visitor_team = visitor_team
+        self.home_team = home_team
+        self.iHome = 0
+        self.iAway = 0
+
+    def play_game(self):
+        while not self.is_final():
+            # print('Before:', self)
+            if self.isTopOfInning:
+                outcome = players.players.make_action_roll(self.visitor_team.batters[self.iAway], self.home_team.pitchers[0])
+            else:
+                outcome = players.players.make_action_roll(self.home_team.batters[self.iHome], self.visitor_team.pitchers[0])
+            match outcome:
+                case ShowdownOutcomes.HITINTODOUBLEPLAY:
+                    self.hit_into_double_play()
+                case ShowdownOutcomes.HITINTOOUT:
+                    self.hit_into_out()
+                case ShowdownOutcomes.SACRAFICE:
+                    self.sacrifice()
+                case ShowdownOutcomes.STRIKE:
+                    self.strike()
+                case ShowdownOutcomes.FOUL:
+                    self.foul()
+                case ShowdownOutcomes.BALL:
+                    self.ball()
+                case ShowdownOutcomes.SINGLE:
+                    self.single()
+                case ShowdownOutcomes.DOUBLE:
+                    self.double()
+                case ShowdownOutcomes.TRIPLE:
+                    self.triple()
+                case ShowdownOutcomes.HOMERUN:
+                    self.homerun()
+                case ShowdownOutcomes.STOLENBASE:
+                    self.stolen_base()
+
+            # print("After:", self)
+        # print(self)
+        return self.stats
 
     def __str__(self):
         final = ''
@@ -71,9 +112,15 @@ class GameState:
         if self.verbose_pitch_prints:
             print('Hit into out')
         self.stats.d.pitchCount += 1
-        self.stats.o.ab += 1
-        self.stats.o.pa += 1
         self.__out()
+
+    def sacrifice(self):
+        if self.verbose_pitch_prints:
+            print('Sacrifice')
+        self.stats.d.pitchCount += 1
+        self.__out()
+        if self.outs <= 2:
+            self.__advance_runners(1)
 
     #########################
     # Offense - Hits
@@ -82,21 +129,31 @@ class GameState:
         if self.verbose_pitch_prints:
             print('Home Run!')
         self.__hit(4)
+        self.stats.o.hr += 1
 
     def triple(self):
         if self.verbose_pitch_prints:
             print('Triple')
         self.__hit(3)
+        self.stats.o.b3 += 1
 
     def double(self):
         if self.verbose_pitch_prints:
             print('Double')
         self.__hit(2)
+        self.stats.o.b2 += 1
 
     def single(self):
         if self.verbose_pitch_prints:
             print('Single')
         self.__hit(1)
+        self.stats.o.b1 += 1
+
+    def stolen_base(self):
+        if self.verbose_pitch_prints:
+            print('Stolen Base')
+        self.__advance_runners(1)
+        self.stats.o.sb += 1
 
     ##########################
     # Plate Appearance in Progress
@@ -120,11 +177,12 @@ class GameState:
         if self.verbose_pitch_prints:
             print('Strike')
         self.stats.d.pitchCount += 1
-        self.stats.d.strike = 1
+        self.stats.d.strike += 1
         self.count = (self.count[0], self.count[1] + 1)
         if self.count[1] == 3:
             if self.verbose_pitch_prints:
                 print('Strike Out')
+            self.stats.o.so += 1
             self.__out()
 
     def foul(self):
@@ -146,7 +204,7 @@ class GameState:
         self.stats.o.pa += 1
         self.stats.o.hits += 1
         self.stats.o.tb += num_bases
-        self.__advance_runners(num_bases)
+        self.__advance_runners(num_bases + 1)
         if num_bases < 4:
             self.bases[num_bases - 1] = 1
         else:

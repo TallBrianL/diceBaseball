@@ -1,1 +1,2 @@
-from .stats import Stats
+from stats.stats import Stats
+
