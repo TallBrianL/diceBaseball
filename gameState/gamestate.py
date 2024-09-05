@@ -20,38 +20,41 @@ class GameState:
 
     def play_game(self):
         while not self.is_final():
-            # print('Before:', self)
             if self.isTopOfInning:
-                outcome = players.players.make_action_roll(self.visitor_team.batters[self.iAway], self.home_team.pitchers[0])
+                outcome = players.players.make_action_roll(
+                    self.visitor_team.batters[self.iAway],
+                    self.home_team.pitchers[0])
             else:
-                outcome = players.players.make_action_roll(self.home_team.batters[self.iHome], self.visitor_team.pitchers[0])
-            match outcome:
-                case ShowdownOutcomes.HITINTODOUBLEPLAY:
-                    self.hit_into_double_play()
-                case ShowdownOutcomes.HITINTOOUT:
-                    self.hit_into_out()
-                case ShowdownOutcomes.SACRAFICE:
-                    self.sacrifice()
-                case ShowdownOutcomes.STRIKE:
-                    self.strike()
-                case ShowdownOutcomes.FOUL:
-                    self.foul()
-                case ShowdownOutcomes.BALL:
-                    self.ball()
-                case ShowdownOutcomes.SINGLE:
-                    self.single()
-                case ShowdownOutcomes.DOUBLE:
-                    self.double()
-                case ShowdownOutcomes.TRIPLE:
-                    self.triple()
-                case ShowdownOutcomes.HOMERUN:
-                    self.homerun()
-                case ShowdownOutcomes.STOLENBASE:
-                    self.stolen_base()
-
-            # print("After:", self)
-        # print(self)
+                outcome = players.players.make_action_roll(
+                    self.home_team.batters[self.iHome],
+                    self.visitor_team.pitchers[0])
+            self.process_outcome(outcome)
         return self.stats
+
+    def process_outcome(self, outcome):
+        match outcome:
+            case ShowdownOutcomes.HITINTODOUBLEPLAY:
+                self.hit_into_double_play()
+            case ShowdownOutcomes.HITINTOOUT:
+                self.hit_into_out()
+            case ShowdownOutcomes.SACRAFICE:
+                self.sacrifice()
+            case ShowdownOutcomes.STRIKE:
+                self.strike()
+            case ShowdownOutcomes.FOUL:
+                self.foul()
+            case ShowdownOutcomes.BALL:
+                self.ball()
+            case ShowdownOutcomes.SINGLE:
+                self.single()
+            case ShowdownOutcomes.DOUBLE:
+                self.double()
+            case ShowdownOutcomes.TRIPLE:
+                self.triple()
+            case ShowdownOutcomes.HOMERUN:
+                self.homerun()
+            case ShowdownOutcomes.STOLENBASE:
+                self.stolen_base()
 
     def __str__(self):
         final = ''
