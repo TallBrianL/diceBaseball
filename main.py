@@ -5,8 +5,8 @@ import stats
 
 class Team:
     def __init__(self):
-        self.batters = [players.players.Batter() for _ in range(9)]
-        self.pitchers = [players.players.Pitcher() for _ in range(1)]
+        self.batters = [players.players.D20Batter() for _ in range(9)]
+        self.pitchers = [players.players.D20Pitcher() for _ in range(1)]
 
 
 if __name__ == '__main__':

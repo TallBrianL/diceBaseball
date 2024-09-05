@@ -2,7 +2,7 @@ import random
 from ShowdownOutcomes import ShowdownOutcomes
 
 
-class Batter:
+class D20Batter:
     @staticmethod
     def take_action(action_score):
         if action_score >= 19:
@@ -22,7 +22,7 @@ class Batter:
         return outcome
 
 
-class Pitcher:
+class D20Pitcher:
     @staticmethod
     def take_action(action_score):
         if action_score >= 17:
@@ -42,10 +42,8 @@ def make_action_roll(batter, pitcher) -> ShowdownOutcomes:
     batter_die = random.randint(1, 20)
     pitcher_die = random.randint(1, 20)
     if batter_die >= pitcher_die:
-        # print('batter', batter_die- pitcher_die)
         outcome = batter.take_action(batter_die - pitcher_die)
     else:
-        # print('pitcher', pitcher_die - batter_die)
         outcome = pitcher.take_action(pitcher_die - batter_die)
     return outcome
 
