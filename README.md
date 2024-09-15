@@ -12,33 +12,32 @@ I took target statistics for different outcomes from this website: https://www.b
 ## Current State
 The simulation run successfully.  It tracks players on base and game statistics.  I believe it appropriately accounts for all end of game scenarios, i.e. home team wins in top of 9th, walk-off, away team wins.  Also statistics are well matched for singles, a bit high for doubles, triples, and homeruns, and as a result, unsurprising, total bases.  Surprisingly the runs are coming in quite short.  Not sure if there is an error in the simulator or if using all identically average players is accounting for the discrepency in runs.
 ## Example output is:
-Playing 4900 games
-500 Games Complete!
-1000 Games Complete!
-1500 Games Complete!
-2000 Games Complete!
-2500 Games Complete!
-3000 Games Complete!
-3500 Games Complete!
-4000 Games Complete!
-4500 Games Complete!
-All Games Completed
+Playing 4900 games  
+500 Games Complete!  
+1000 Games Complete!  
+1500 Games Complete!  
+2000 Games Complete!  
+2500 Games Complete!  
+3000 Games Complete!  
+3500 Games Complete!  
+4000 Games Complete!  
+4500 Games Complete!  
+All Games Completed  
 
-Statistics are Per Game Per Team: 
----------------------------------
-Runs Per Game (4.07-4.86): 2.88 
-Games Played: 4900 
-Plate Appearances (37.03-38.80): 40.65 
-At Bats (32.87-34.51): 37.58 
-Runs (4.07-4.86): 2.88 
-Hits (8.04-9.28): 9.77 
-1B (5.06-6.15): 5.66 
-2B (1.57-1.89): 2.06 
-3B (0.13-0.20): 0.50 
-HR (0.89-1.39): 1.54 
-SB (0.57-0.72): 1.04 
-BB (2.88-3.39): 3.07 
-SO (6.52-8.37): 8.51 
-BA (.243-.269): 0.260 
-TB (13-35-14.59): 17.47 
-GDP (.68-.82): 0.76
+Statistics are Per Game Per Team:  
+Runs Per Game (4.07-4.86): 2.88  
+Games Played: 4900  
+Plate Appearances (37.03-38.80): 40.65  
+At Bats (32.87-34.51): 37.58  
+Runs (4.07-4.86): 2.88  
+Hits (8.04-9.28): 9.77  
+1B (5.06-6.15): 5.66  
+2B (1.57-1.89): 2.06  
+3B (0.13-0.20): 0.50  
+HR (0.89-1.39): 1.54  
+SB (0.57-0.72): 1.04  
+BB (2.88-3.39): 3.07  
+SO (6.52-8.37): 8.51  
+BA (.243-.269): 0.260  
+TB (13-35-14.59): 17.47  
+GDP (.68-.82): 0.76  
