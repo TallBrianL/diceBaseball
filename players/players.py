@@ -30,7 +30,7 @@ class D20Pitcher:
         elif action_score >= 15:
             outcome = ShowdownOutcomes.HITINTOOUT
         elif action_score >= 12:
-            outcome = ShowdownOutcomes.SACRAFICE
+            outcome = ShowdownOutcomes.SACRIFICE
         elif action_score >= 9:
             outcome = ShowdownOutcomes.STRIKE
         else:
@@ -46,4 +46,3 @@ def make_action_roll(batter, pitcher) -> ShowdownOutcomes:
     else:
         outcome = pitcher.take_action(pitcher_die - batter_die)
     return outcome
-

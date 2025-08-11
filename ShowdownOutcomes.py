@@ -4,7 +4,7 @@ from enum import Enum
 class ShowdownOutcomes(Enum):
     HITINTODOUBLEPLAY = 1
     HITINTOOUT = 2
-    SACRAFICE = 3
+    SACRIFICE = 3
     STRIKE = 4
     FOUL = 5
     BALL = 6

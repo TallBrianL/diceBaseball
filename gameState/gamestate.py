@@ -37,7 +37,7 @@ class GameState:
                 self.hit_into_double_play()
             case ShowdownOutcomes.HITINTOOUT:
                 self.hit_into_out()
-            case ShowdownOutcomes.SACRAFICE:
+            case ShowdownOutcomes.SACRIFICE:
                 self.sacrifice()
             case ShowdownOutcomes.STRIKE:
                 self.strike()
@@ -70,7 +70,7 @@ class GameState:
                              ',', str(self.outs), 'outs, count is:', str(self.count)])
 
     def is_final(self):
-        assert(0 <= self.outs <= 3)
+        assert (0 <= self.outs <= 3)
         is_final = False
         if self.inning >= 9:
             if self.isTopOfInning and self.outs >= 3 and self.__is_home_team_winning():
@@ -162,8 +162,8 @@ class GameState:
     # Plate Appearance in Progress
 
     def ball(self):
-        assert(0 <= self.count[0] <= 3)
-        assert(0 <= self.count[1] <= 2)
+        assert (0 <= self.count[0] <= 3)
+        assert (0 <= self.count[1] <= 2)
         assert (0 <= self.outs <= 2)
         if self.verbose_pitch_prints:
             print('Ball')
@@ -217,7 +217,7 @@ class GameState:
     def __out(self):
         if self.verbose_pitch_prints:
             print('Out!')
-        assert(self.outs < 3)
+        assert (self.outs < 3)
         self.outs += 1
         self.stats.d.out += 1
         self.stats.o.ab += 1
@@ -239,7 +239,7 @@ class GameState:
                     self.__score_run()
                     self.stats.o.rbi += 1
                 else:
-                    # man aleady on first and second, add to third
+                    # man already on first and second, add to third
                     self.bases[2] = 1
             else:
                 # man already on first, just add to 2nd
@@ -247,7 +247,6 @@ class GameState:
         else:
             self.bases[0] = 1
         self.count = (0, 0)
-
 
     def __score_run(self):
         if self.verbose_pitch_prints:
