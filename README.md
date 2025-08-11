@@ -1,43 +1,57 @@
 # Dice Baseball
-## TLDR
-Trying to match statistics of a baseball game to real MLB statistics.
+
+## Introduction
+
+This project is a dice-based baseball game simulation. The goal is to create a game where dice rolls determine outcomes, and then verify that the resulting game statistics closely match real Major League Baseball (MLB) statistics.
+
 ## Background
-My son loves baseball and baseball cards.  I have heard of people inventing games to play with baseball cards and so I helped hiim to invent a game he could play with the cards.  At first we made a pretty simple game with two D6 dice, one for the pitcher and one for the batter.  You would roll both and subtract the two.  If the pitcher was higher and the difference was 5, double play.  If the batter was higher and the difference was 5, homerun!  If it was a tie, foul ball.  We filled in the rest with singles, strikes, and balls.
 
-As he grew familiar with the game he was interested to add more actions, base on balls, steals, sacrafice hits.  So we replaced D6 dice with D20 dice and made a much bigger action table.  We filled it in according to how 'good' or 'exciting' outcomes seemed to be for the defense and offense, but gamaes were going on forever and the scoring was out of control.
+My son loves baseball and collecting baseball cards. Inspired by how some people invent games using baseball cards, we created a simple dice game for him. Originally, we used two six-sided dice (D6) — one representing the batter and one the pitcher. The difference in dice rolls determined outcomes like strikeouts, singles, doubles, home runs, and more. For example, a difference of 5 in favor of the pitcher might mean a double play, and the same difference favoring the batter could mean a home run.
 
-I thought I would work to see if I could define actions based on the dice difference that would match the real MLB statistics.  I wrote this simulation so I could quickly run hundreds of games to see if the statistics of the game match the real MLB.
-## Reference
-I took target statistics for different outcomes from this website: https://www.baseball-reference.com/leagues/majors/bat.shtml
+As the game evolved, we expanded the dice to 20-sided dice (D20) and added more possible outcomes such as walks, stolen bases, and sacrifice hits. However, the game became overly long and scoring became unrealistic.
+
+To improve the game, I wrote this simulation to test and refine the outcome probabilities based on dice rolls, aiming to match real MLB statistics more closely. This helps us tune the game for better realism and balanced gameplay.
+
+## Reference Data
+
+The target statistics are taken from this authoritative source:
+[Baseball Reference - MLB Batting Stats](https://www.baseball-reference.com/leagues/majors/bat.shtml)
+
 ## Current State
-The simulation run successfully.  It tracks players on base and game statistics.  I believe it appropriately accounts for all end of game scenarios, i.e. home team wins in top of 9th, walk-off, away team wins.  Also statistics are well matched for singles, a bit high for doubles, triples, and homeruns, and as a result, unsurprising, total bases.  Surprisingly the runs are coming in quite short.  Not sure if there is an error in the simulator or if using all identically average players is accounting for the discrepency in runs.
-## Example output is:
+
+The simulation runs successfully and produces offensive statistics that are reasonably close to real MLB data, though the offense is currently a bit high.
+
+## Example Output
+
+```
 Playing 4900 games  
 500 Games Complete!  
 1000 Games Complete!  
-1500 Games Complete!  
-2000 Games Complete!  
-2500 Games Complete!  
-3000 Games Complete!  
-3500 Games Complete!  
-4000 Games Complete!  
-4500 Games Complete!  
+...  
 All Games Completed  
 
 Statistics are Per Game Per Team:  
-Runs Per Game (4.07-4.86): 2.88  
+---------------------------------  
+Runs Per Game (4.07-4.86): 5.61  
 Games Played: 4900  
-Plate Appearances (37.03-38.80): 40.65  
-At Bats (32.87-34.51): 37.58  
-Runs (4.07-4.86): 2.88  
-Hits (8.04-9.28): 9.77  
-1B (5.06-6.15): 5.66  
-2B (1.57-1.89): 2.06  
+Plate Appearances (37.03-38.80): 39.27  
+At Bats (32.87-34.51): 36.31  
+Runs (4.07-4.86): 5.61  
+Hits (8.04-9.28): 9.45  
+1B (5.06-6.15): 5.50  
+2B (1.57-1.89): 1.98  
 3B (0.13-0.20): 0.50  
-HR (0.89-1.39): 1.54  
-SB (0.57-0.72): 1.04  
-BB (2.88-3.39): 3.07  
-SO (6.52-8.37): 8.51  
+HR (0.89-1.39): 1.46  
+SB (0.57-0.72): 0.98  
+BB (2.88-3.39): 2.96  
+SO (6.52-8.37): 8.24  
 BA (.243-.269): 0.260  
-TB (13-35-14.59): 17.47  
-GDP (.68-.82): 0.76  
+TB (13-35-14.59): 16.83  
+GDP (.68-.82): 0.74  
+```
+
+## How to Use
+
+1. Run `main.py` to simulate 4,900 games between two teams.
+2. Review the statistics printed at the end to compare the simulated game outcomes with real MLB stats.
+3. Use the code to experiment with different outcome tables, dice rules, or player attributes to tune gameplay realism.
