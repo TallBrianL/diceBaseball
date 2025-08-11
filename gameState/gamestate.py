@@ -262,7 +262,7 @@ class GameState:
         for _ in range(num_bases):
             if self.bases[2] == 1:
                 self.__score_run()
-            self.bases[1:2] = self.bases[0:1]
+            self.bases[1:3] = self.bases[0:2]
             self.bases[0] = 0
             if self.is_final():
                 break
